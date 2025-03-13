@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ration System</title>
+    <style>
+        body {
+            font-family: 'Bookman Old Style';
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: rgb(10, 0, 0);
+            padding: 60px 20px;
+            text-align: center;
+            background-image: url('{{ url_for("static", filename="images/background.jpg") }}');
+            background-size: cover;
+            background-position: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .form-box h2 {
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .form-box input, .form-box select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-box button:hover {
+            background-color: #45a049;
+        }
+
+        .form-box p {
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+
+        .form-box a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: rgba(12, 5, 5, 0.692);
+            color: rgb(255, 254, 254);
+            text-align: center;
+            padding: 10px 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .family-member {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="E-Ration Logo" class="img-fluid" style="max-width: 150px; margin-bottom: 20px;">
+    <h1>E-Ration System</h1>
+    <p>Efficient food distribution through technology</p>
+</header>
+
+<div class="form-container">
+    <div class="form-box" id="login-form">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="javascript:void(0)" onclick="showRegisterForm()">Register here</a></p>
+    </div>
+
+    <div class="form-box" id="register-form" style="display: none;">
+        <h2>Register</h2>
+        <form action="/register" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <h3>Family Members</h3>
+            <input type="number" id="total-members" name="total_members" placeholder="Total Family Members" min="1" required oninput="generateFamilyMembers()">
+
+            <div id="family-members-container"></div>
+
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="javascript:void(0)" onclick="showLoginForm()">Login here</a></p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 E-Ration System. All rights reserved.</p>
+</footer>
+
+<script>
+    function showRegisterForm() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('register-form').style.display = 'block';
+    }
+
+    function showLoginForm() {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('register-form').style.display = 'none';
+    }
+
+    function generateFamilyMembers() {
+        let container = document.getElementById("family-members-container");
+        container.innerHTML = "";  // Clear previous entries
+        let totalMembers = document.getElementById("total-members").value;
+
+        if (totalMembers > 0) {
+            for (let i = 1; i <= totalMembers; i++) {
+                let memberDiv = document.createElement("div");
+                memberDiv.classList.add("family-member");
+                memberDiv.innerHTML = `
+                    <h4>Family Member ${i}</h4>
+                    <input type="text" name="family_names[]" placeholder="Name" required>
+                    <input type="number" name="family_ages[]" placeholder="Age" required>
+                    <select name="family_genders[]" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" name="family_relations[]" placeholder="Relation (e.g., Son, Daughter)" required>
+                `;
+                container.appendChild(memberDiv);
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

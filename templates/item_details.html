@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ item.name }} - E-Ration System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f4f7fc, #e0e5ec);
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50, #81C784);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 30px 20px;
+            flex-wrap: wrap;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .item-image {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .item-image {
+            transform: scale(1.05);
+        }
+
+        .item-details {
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .item-details h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .item-details p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .item-details .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Unique Colors for Each Item */
+        .card:nth-child(1) .btn {
+            background: linear-gradient(135deg, #ff6f61, #ff9a9e);
+        }
+
+        .card:nth-child(2) .btn {
+            background: linear-gradient(135deg, #6b5b95, #8e7cc3);
+        }
+
+        .card:nth-child(3) .btn {
+            background: linear-gradient(135deg, #88d8b0, #a2e8c0);
+        }
+
+        .card:nth-child(4) .btn {
+            background: linear-gradient(135deg, #ffcc5c, #ffd966);
+        }
+
+        .card:nth-child(5) .btn {
+            background: linear-gradient(135deg, #ff6f61, #ff9a9e);
+        }
+
+        .card:nth-child(6) .btn {
+            background: linear-gradient(135deg, #6b5b95, #8e7cc3);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #333, #444);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4CAF50, #81C784);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: auto;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>{{ item.name }} - E-Ration System</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}" class="item-image">
+        <div class="item-details">
+            <h2>{{ item.name }}</h2>
+            <p>{{ item.description }}</p>
+            <p class="price">Price: ₹{{ item.rate }} per {{ item.unit }}</p>
+            <p>Available Stock: {{ item.stock }} {{ item.unit }}</p>
+
+            <!-- Check if the user has stock assigned -->
+            {% if user_item_stock and user_item_stock.available_stock > 0 %}
+                <p>Available to you: <strong>{{ user_item_stock.available_stock }} {{ item.unit }}</strong></p>
+
+                <form action="{{ url_for('buy_item', item_id=item.id) }}" method="POST">
+                    <div class="quantity-control">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="{{ user_item_stock.available_stock }}" required>
+                    </div>
+                    <button type="submit" class="btn" {% if user_item_stock.available_stock <= 0 %} disabled {% endif %}>Buy Now</button>
+                </form>
+            {% else %}
+                <p>You have no stock available for this item.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Back Button -->
+<a href="{{ url_for('home') }}" class="back-btn">Back to Home</a>
+
+<footer>
+    <p>&copy; 2025 E-Ration System. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Ensure the user_item_stock is safely passed, handle possible None value
+    var userAvailableStock = {{ user_item_stock.available_stock if user_item_stock else 0 }};
+    var stockCount = {{ item.stock }};
+    var buyBtn = document.querySelector('.btn');
+    var quantityInput = document.getElementById("quantity");
+
+    // Disable "Buy Now" button if no available stock for the user
+    if (userAvailableStock <= 0) {
+        buyBtn.disabled = true;  // Disable button if stock is 0 or less
+        quantityInput.disabled = true; // Disable quantity input if no stock is available
+    }
+
+    // Adjust quantity input based on the user's available stock
+    quantityInput.addEventListener("input", function() {
+        var quantity = parseInt(this.value);
+        if (quantity > userAvailableStock) {
+            this.value = userAvailableStock; // Max quantity the user can buy is their available stock
+        }
+    });
+
+    // Dynamic quantity control: the input cannot exceed user's available stock
+    quantityInput.setAttribute("max", userAvailableStock);
+</script>
+
+</body>
+</html>

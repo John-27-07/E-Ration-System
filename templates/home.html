@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ration System</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .header-buttons a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .header-buttons a:hover {
+            color: #ffeb3b;
+            transform: translateY(-3px);
+        }
+
+        .container {
+            display: block;
+            padding: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 200px; /* Fixed width for the image */
+            height: 200px; /* Fixed height for the image */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .card-body h3 {
+            font-size: 22px;
+            color: #333;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+
+        .card-body p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .card-body .price {
+            font-size: 20px;
+            color: #e91e63;
+            font-weight: 600;
+        }
+
+        /* Unique Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button 1 */
+        .btn-1 {
+            background: linear-gradient(135deg, #ff6f61, #ff9a9e);
+        }
+
+        .btn-1:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(255, 111, 97, 0.3);
+        }
+
+        /* Button 2 */
+        .btn-2 {
+            background: linear-gradient(135deg, #6b5b95, #8e7cc3);
+        }
+
+        .btn-2:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(107, 91, 149, 0.3);
+        }
+
+        /* Button 3 */
+        .btn-3 {
+            background: linear-gradient(135deg, #88d8b0, #a2e8c0);
+        }
+
+        .btn-3:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(136, 216, 176, 0.3);
+        }
+
+        /* Button 4 */
+        .btn-4 {
+            background: linear-gradient(135deg, #ffcc5c, #ffd966);
+        }
+
+        .btn-4:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(255, 204, 92, 0.3);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .card img {
+                width: 100%; /* Full width on smaller screens */
+                height: 250px; /* Fixed height for consistency */
+            }
+
+            .card-body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-Ration System</h1>
+        <div class="header-buttons">
+            <a href="{{ url_for('profile') }}">My Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        {% for item in items %}
+        <div class="card">
+            <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}">
+            <div class="card-body">
+                <h3>{{ item.name }}</h3>
+                <p>Available Stock: {{ item.stock }} {{ item.unit }}</p>
+                <p class="price">Price: ₹{{ item.rate }} per {{ item.unit }}</p>
+                <!-- Assign unique button classes -->
+                <a href="{{ url_for('item_details', item_id=item.id) }}" class="btn btn-{{ loop.index % 4 + 1 }}">View Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 E-Ration System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
